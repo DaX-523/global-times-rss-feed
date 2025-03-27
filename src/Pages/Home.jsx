@@ -445,29 +445,7 @@ const Home = () => {
           </section>
 
           {/* Newsletter Section */}
-          <section className="w-full border-t-4 border-black py-8 sm:py-16 bg-white">
-            <div className="w-full px-4 sm:px-12 text-center">
-              <div>
-                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-black mb-3 sm:mb-4"
-                    style={{ fontFamily: 'Playfair Display, serif' }}>
-                  Subscribe to The Global Times
-                </h2>
-                <p className="text-gray-800 mb-6 sm:mb-8 font-serif italic text-sm sm:text-base">
-                  Stay informed with our daily digital edition
-                </p>
-                <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-                  <input
-                    type="email"
-                    placeholder="Enter your email address"
-                    className="flex-1 px-4 py-3 border-2 border-black focus:outline-none font-serif italic bg-white text-sm sm:text-base"
-                  />
-                  <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-black text-white hover:bg-gray-800 transition-colors font-serif uppercase tracking-wider transform hover:-rotate-1 text-sm sm:text-base">
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
+         
         </div>
       )}
     </Layout>
