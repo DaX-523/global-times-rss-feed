@@ -7,6 +7,7 @@ import Business from './Pages/Business';
 import Technology from './Pages/Technology';
 import Science from './Pages/Science';
 import Sports from './Pages/Sports';
+import NewsDetail from './Pages/NewsDetail';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -22,6 +23,7 @@ export const AppRoutes = () => {
         <Route path="/technology" element={<Technology />} />
         <Route path="/science" element={<Science />} />
         <Route path="/sports" element={<Sports />} />
+        <Route path="/news/:id" element={<NewsDetail />} />
       </Routes>
       <Footer />
     </div>

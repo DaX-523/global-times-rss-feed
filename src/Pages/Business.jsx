@@ -4,8 +4,14 @@ import ImageWithSkeleton from '../components/ImageWithSkeleton';
 import globalEconomicSummitImage from '../assets/global-markets-rally-on-economic-data-stock-market.jpg';
 import CryptoCurrencyImage from '../assets/cryptocurrency-regulation-framework-proposed.jpg';
 import electricVehicleMarketImage from '../assets/electric-vehicle-market-expansion-major-automakers.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const Business = () => {
+  const navigate= useNavigate();
+
+  const handleArticleClick = (articleId) => {
+    navigate(`/news/${articleId}`);
+  };
   const businessStories = [
     {
       title: "GLOBAL MARKETS RALLY ON ECONOMIC DATA",
@@ -58,7 +64,7 @@ const Business = () => {
         <section className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-8 mb-8 sm:mb-12 md:mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {businessStories.map((story, index) => (
-              <div key={index} className="bg-white border-2 sm:border-4 border-black p-4 sm:p-6 md:p-8 transform hover:-rotate-1 transition-transform duration-300">
+              <div key={index} className="bg-white border-2 sm:border-4 border-black p-4 sm:p-6 md:p-8 transform hover:-rotate-1 transition-transform duration-300" onClick={() => handleArticleClick(index)}>
                 <div className="aspect-[4/3] relative overflow-hidden mb-4 sm:mb-6 md:mb-8 group hover:grayscale-0 grayscale transition-all duration-1000">
                   <ImageWithSkeleton
                     src={story.image}
