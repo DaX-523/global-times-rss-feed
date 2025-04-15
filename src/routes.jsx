@@ -23,6 +23,10 @@ export const AppRoutes = () => {
         <Route path="/technology" element={<Technology />} />
         <Route path="/science" element={<Science />} />
         <Route path="/sports" element={<Sports />} />
+        {/* <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
+        <Route path="/finance" element={<Finance />} />
+        <Route path="/stocks" element={<Stocks />} />
+        <Route path="/wellness" element={<Wellness />} /> */}
         <Route path="/news/:id" element={<NewsDetail />} />
       </Routes>
       <Footer />

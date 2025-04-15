@@ -2,70 +2,164 @@ import React from 'react';
 import Layout from '../components/Layout';
 import ImageWithSkeleton from '../components/ImageWithSkeleton';
 import techGiantsImage from '../assets/tech-giants-unveil-ai-safety-framework-major-techn.jpg';
+import { baseUrl, technology } from '../lib/constants';
+import formatRelativeDate from '../utils/formatRelativeDate';
+import parseContent from '../lib/parseContent';
 
 const Technology = () => {
-  const techStories = [
-    {
-      title: "TECH GIANTS UNVEIL AI SAFETY FRAMEWORK",
-      description: "Major technology companies announce collaborative initiative to establish ethical guidelines for artificial intelligence development. The framework aims to ensure responsible AI deployment while fostering innovation.",
-      category: "Artificial Intelligence",
-      timestamp: "3 hours ago",
-      author: "Michael Rodriguez",
-      image: techGiantsImage
-    },
-    {
-      title: "QUANTUM COMPUTING BREAKTHROUGH ACHIEVED",
-      description: "Scientists have achieved a major milestone in quantum computing, successfully maintaining quantum coherence for an unprecedented duration. This breakthrough brings us closer to practical quantum computing applications.",
-      category: "Computing",
-      timestamp: "4 hours ago",
-      author: "Dr. Emily Thompson"
-    },
-    {
-      title: "5G NETWORK EXPANSION ACCELERATES",
-      description: "Telecommunications companies announce accelerated rollout of 5G networks across major metropolitan areas. The expansion promises faster internet speeds and improved connectivity for millions of users.",
-      category: "Telecommunications",
-      timestamp: "5 hours ago",
-      author: "Sarah Chen"
+  const [data, setData] = React.useState(null);
+  const fetchData = async () => {
+    const maal = await fetch(`${baseUrl}${technology}`);
+    const feed = await maal.json();
+    if (feed?.status !== "ok") {
+      console.error("Failed to fetch feed", feed);
+      return;
     }
-  ];
+
+    feed.items = feed?.items?.map(item => {
+      return  {
+        ...item,
+         description: parseContent(item.description)
+      }
+    })
+    setData(feed);
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+  //Dummy data
+  // const arr = [{
+  //   "title": "OpenAI hires team behind GV-backed AI eval platform Context.ai",
+  //   "pubDate": "2025-04-15 18:13:18",
+  //   "link": "https://techcrunch.com/2025/04/15/openai-hires-team-behind-gv-backed-ai-eval-platform-context-ai/",
+  //   "guid": "https://techcrunch.com/?p=2994167",
+  //   "author": "Ivan Mehta",
+  //   "thumbnail": "",
+  //   "description": "Context.ai, a startup building evaluations and analytics for AI models, announced Tuesday that its co-founders will join OpenAI.  Context.ai plans to wind down its products following the acqui-hire, per a message on the company’s website. When reached for comment, OpenAI declined to reveal the terms of the deal. “Evals are a requirement to building high-performing […]",
+  //   "content": "Context.ai, a startup building evaluations and analytics for AI models, announced Tuesday that its co-founders will join OpenAI.  Context.ai plans to wind down its products following the acqui-hire, per a message on the company’s website. When reached for comment, OpenAI declined to reveal the terms of the deal. “Evals are a requirement to building high-performing […]",
+  //   "enclosure": {
+  //   },
+  //   "categories": [
+  //   "AI",
+  //   "Startups",
+  //   "acquihire",
+  //   "context.ai",
+  //   "OpenAI"
+  //   ],
+  //   },
+  //   {
+  //   "title": "Google bets on geothermal to power data centers in Taiwan",
+  //   "pubDate": "2025-04-15 18:02:10",
+  //   "link": "https://techcrunch.com/2025/04/15/google-bets-on-geothermal-to-power-data-centers-in-taiwan/",
+  //   "guid": "https://techcrunch.com/?p=2994226",
+  //   "author": "Tim De Chant",
+  //   "thumbnail": "",
+  //   "description": "Swedish company Baseload Capital is developing the project.",
+  //   "content": "Swedish company Baseload Capital is developing the project.",
+  //   "enclosure": {
+  //   },
+  //   "categories": [
+  //   "Climate",
+  //   "Media &amp; Entertainment",
+  //   "geothermal",
+  //   "geothermal energy",
+    
+  //   ]
+  //   }]
+
+  // const techStories = [
+  //   {
+  //     title: "TECH GIANTS UNVEIL AI SAFETY FRAMEWORK",
+  //     description: "Major technology companies announce collaborative initiative to establish ethical guidelines for artificial intelligence development. The framework aims to ensure responsible AI deployment while fostering innovation.",
+  //     category: "Artificial Intelligence",
+  //     timestamp: "3 hours ago",
+  //     author: "Michael Rodriguez",
+  //     image: techGiantsImage
+  //   },
+  //   {
+  //     title: "QUANTUM COMPUTING BREAKTHROUGH ACHIEVED",
+  //     description: "Scientists have achieved a major milestone in quantum computing, successfully maintaining quantum coherence for an unprecedented duration. This breakthrough brings us closer to practical quantum computing applications.",
+  //     category: "Computing",
+  //     timestamp: "4 hours ago",
+  //     author: "Dr. Emily Thompson"
+  //   },
+  //   {
+  //     title: "5G NETWORK EXPANSION ACCELERATES",
+  //     description: "Telecommunications companies announce accelerated rollout of 5G networks across major metropolitan areas. The expansion promises faster internet speeds and improved connectivity for millions of users.",
+  //     category: "Telecommunications",
+  //     timestamp: "5 hours ago",
+  //     author: "Sarah Chen"
+  //   }
+  // ];
 
   return (
     <Layout>
-      <div className="min-h-screen pt-4 sm:pt-6 md:pt-10 bg-white">
+      <div className="min-h-screen pt-2 sm:pt-4 md:pt-6 bg-white">
         {/* Newspaper Header */}
+        {/* Newspaper Header Start */}
+        {data?.feed?.image && (
+              <img
+                src={data.feed.image}
+                alt={data.feed.title || 'Feed Logo'}
+                className="w-12 h-12 sm:w-20 sm:h-20 object-contain border border-black rounded-full bg-white shadow-md mx-auto"
+              />
+            )}
         <div className="w-full border-b-4 border-black mb-4 sm:mb-6 md:mb-8">
-          <div className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-8">
-            <h1 className="text-4xl sm:text-6xl md:text-8xl font-serif text-center font-bold py-4 sm:py-6 md:py-8 italic" 
-                style={{ fontFamily: 'Playfair Display, serif' }}>
-              Technology
-            </h1>
-            <div className="text-center font-serif text-sm sm:text-base md:text-lg mb-4 italic">
-              {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-              <span className="mx-2 sm:mx-4">|</span>
-              "Your Window to the World"
-              <span className="mx-2 sm:mx-4">|</span>
-              Digital Edition
+          <div className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8">
+            {/* Logo/Image */}
+            
+            <div className="flex-1 text-center flex flex-col items-center">
+            {/* Title/Description/Meta */}
+              <h1 className="text-4xl sm:text-6xl md:text-8xl font-serif font-bold py-4 sm:py-6 md:py-8 italic" style={{ fontFamily: 'Playfair Display, serif' }}>
+                {data?.feed?.title || 'Technology News'}
+              </h1>
+              {data?.feed?.description && (
+                <div className="font-serif text-base sm:text-lg md:text-xl text-gray-700 mb-2 italic">
+                  {data.feed.description}
+                </div>
+              )}
+              <div className="text-center font-serif text-sm sm:text-base md:text-lg mb-4 italic flex flex-wrap items-center justify-center gap-x-2">
+                <span>{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <span className="mx-2 sm:mx-4">|</span>
+                <span>"Your Window to the World"</span>
+                <span className="mx-2 sm:mx-4">|</span>
+                <span>Digital Edition</span>
+              </div>
+              {data?.feed?.link && (
+                <a
+                  href={data.feed.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs sm:text-sm text-gray-500 underline hover:text-blue-900 font-serif"
+                >
+                  Source: {data.feed.link.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                </a>
+              )}
             </div>
           </div>
         </div>
+        {/* Newspaper Header End */}
 
         {/* Technology Stories */}
         <section className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-8 mb-8 sm:mb-12 md:mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {techStories.map((story, index) => (
-              <div key={index} className="bg-white border-2 sm:border-4 border-black p-4 sm:p-6 md:p-8 transform hover:-rotate-1 transition-transform duration-300">
+            {data?.items?.map((story, index) => (
+              <div key={index} className="bg-white min-w-[250px] border-2 sm:border-4 border-black p-4 sm:p-6 md:p-8 transform hover:-rotate-1 transition-transform duration-300">
                 <div className="aspect-[16/9] relative overflow-hidden mb-4 sm:mb-6 md:mb-8 group hover:grayscale-0 grayscale transition-all duration-1000">
                   <ImageWithSkeleton
-                    src={story.image || `/tech-${index + 1}.jpg`}
+                    src={story.thumbnail || techGiantsImage}
                     alt={story.title}
                     aspectRatio="16/9"
                     className="transition-transform duration-1000 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-500"></div>
                 </div>
-                <span className="font-serif text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-800 border border-black sm:border-2 px-2 sm:px-4 py-1 inline-block transform -rotate-1">
-                  {story.category}
-                </span>
+                {story.categories.map((category, index) => (
+                  <span key={index} className="m-1 p-1 font-serif text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-800 border border-black sm:border-2 px-2 sm:px-4 py-1 inline-block transform -rotate-1">
+                    {category}
+                  </span>
+                ))}
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-black mt-3 sm:mt-4 mb-3 sm:mb-4 md:mb-6 leading-tight"
                     style={{ fontFamily: 'Playfair Display, serif' }}>
                   {story.title}
@@ -76,7 +170,7 @@ const Technology = () => {
                 <div className="flex items-center text-gray-800 text-xs sm:text-sm font-serif italic">
                   <span>By {story.author}</span>
                   <span className="mx-2">|</span>
-                  <span>{story.timestamp}</span>
+                  <span>{formatRelativeDate(story.pubDate)}</span>
                 </div>
               </div>
             ))}

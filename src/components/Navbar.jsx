@@ -14,10 +14,14 @@ const Navbar = () => {
     { path: '/', label: 'Home' },
     { path: '/breaking-news', label: 'Breaking News' },
     { path: '/politics', label: 'Politics' },
-    { path: '/business', label: 'Business' },
+    
     { path: '/technology', label: 'Technology' },
-    { path: '/science', label: 'Science' },
-    { path: '/sports', label: 'Sports' }
+    
+    { path: '/sports', label: 'Sports' },
+    { path: '/cryptocurrencies', label: 'Cryptocurrencies' },
+    { path: '/finance', label: 'Finance' },
+    { path: '/stocks', label: 'Stocks' },
+    { path: '/wellness', label: 'Wellness' },
   ];
 
   const handleSubscribe = () => {
@@ -59,7 +63,7 @@ const Navbar = () => {
           <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-20">
               <div className="flex items-center">
-                <Link to="/" className="text-4xl font-serif font-bold italic text-black transform hover:scale-105 transition-transform duration-300"
+                <Link to="/" className="xl:text-4xl lg:text-2xl md:text-xl text-4xl font-serif font-bold italic text-black transform hover:scale-105 transition-transform duration-300"
                       style={{ fontFamily: 'Playfair Display, serif' }}>
                   The Global Times
                 </Link>
@@ -69,7 +73,7 @@ const Navbar = () => {
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`inline-flex items-center px-4 py-2 text-sm font-serif uppercase tracking-wider transform hover:-rotate-1 transition-all duration-300 ${
+                    className={`inline-flex items-center px-2 py-2 text-sm font-serif uppercase tracking-wider transform hover:-rotate-1 transition-all duration-300 ${
                       location.pathname === link.path
                         ? 'text-black border-b-2 border-black'
                         : 'text-gray-600 hover:text-black hover:border-b-2 hover:border-black'
@@ -82,7 +86,7 @@ const Navbar = () => {
               <div className="hidden sm:flex sm:items-center">
                 <button 
                   onClick={handleSubscribe}
-                  className="bg-black text-white px-6 py-2 text-sm font-serif uppercase tracking-wider transform hover:-rotate-1 transition-all duration-300 hover:bg-gray-800">
+                  className="bg-black text-white px-4 ml-6 py-2 text-sm font-serif uppercase tracking-wider transform hover:-rotate-1 transition-all duration-300 hover:bg-gray-800">
                   Subscribe
                 </button>
               </div>
