@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import ImageWithSkeleton from "../components/ImageWithSkeleton";
+import ContentModal from "../components/ContentModal";
 import politicsImage from "../assets/politics.jpg";
 import politicsImage1 from "../assets/politics1.jpg";
 import politicsImage2 from "../assets/politics2.jpg";
 import formatRelativeDate from "../utils/formatRelativeDate";
-import { baseUrl, politics } from "../lib/constants";
-import parseContent from "../lib/parseContent";
+import { politics } from "../lib/constants";
 import useFeedData from "../hooks/useFeedData";
+import { summarizeContent } from "../lib/GroqApiCall";
+import { Sparkles, BookOpenText, Share } from "lucide-react";
 
 // Function to get a random politics image
 const getRandomImage = () => {
@@ -16,8 +18,74 @@ const getRandomImage = () => {
   return images[randomIndex];
 };
 
+// Function to truncate text
+const truncateText = (text, maxLength = 150) => {
+  if (!text || text.length <= maxLength) return text;
+  return text.substring(0, maxLength) + "...";
+};
+
 const Politics = () => {
   const { data, loading, error } = useFeedData(politics);
+  const [selectedStory, setSelectedStory] = useState(null);
+  const [modalContent, setModalContent] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [summarizedContent, setSummarizedContent] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [modalType, setModalType] = useState(""); // 'full', 'summary', 'notes', etc.
+
+  const handleViewFull = (story) => {
+    setSelectedStory(story);
+    setModalTitle(story.title);
+    setModalContent(story.description);
+    setModalType("full");
+    setIsModalOpen(true);
+  };
+
+  const handleSummarize = async (story) => {
+    setSelectedStory(story);
+    setModalTitle(`Summary: ${story.title}`);
+    setIsLoading(true);
+    setModalType("summary");
+    setIsModalOpen(true);
+
+    try {
+      const summary = await summarizeContent(story.description);
+      setSummarizedContent(summary);
+    } catch (err) {
+      console.error(err);
+      setSummarizedContent("Error generating summary. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleShare = (story) => {
+    setSelectedStory(story);
+    setIsShareModalOpen(true);
+  };
+
+  const handleShareOption = (option) => {
+    setIsShareModalOpen(false);
+    setModalTitle(`Share via ${option}: ${selectedStory.title}`);
+    setModalContent("");
+    setModalType(`share-${option}`);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedStory(null);
+    setModalContent("");
+    setModalTitle("");
+    setModalType("");
+  };
+
+  const closeShareModal = () => {
+    setIsShareModalOpen(false);
+  };
+
   const politicalStories = [
     {
       title: "GLOBAL LEADERS CONVENE FOR ANNUAL SUMMIT",
@@ -44,6 +112,46 @@ const Politics = () => {
       author: "David Kumar",
     },
   ];
+
+  const renderModalContent = () => {
+    if (modalType === "full") {
+      return <div className="prose max-w-none">{modalContent}</div>;
+    }
+
+    if (modalType === "summary") {
+      return (
+        <div>
+          {isLoading ? (
+            <div className="flex justify-center my-8">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-black"></div>
+            </div>
+          ) : (
+            <div className="prose max-w-none">
+              <h3 className="font-serif mb-4">AI Summary</h3>
+              <div className="p-4 bg-gray-100">{summarizedContent}</div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    if (modalType.startsWith("share-")) {
+      return (
+        <div>
+          <textarea
+            className="w-full h-64 p-4 border-2 border-black font-serif"
+            placeholder={`Create your ${modalType.replace(
+              "share-",
+              ""
+            )} post here...`}
+            autoFocus
+          ></textarea>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <Layout>
@@ -151,12 +259,35 @@ const Politics = () => {
                     {story.title}
                   </h2>
                   <p className="text-sm sm:text-base md:text-lg text-gray-800 mb-4 sm:mb-6 font-serif">
-                    {story.description}
+                    {truncateText(story.description, 200)}
                   </p>
-                  <div className="flex items-center text-gray-800 text-xs sm:text-sm font-serif italic">
-                    <span>By {story.author || "Editorial Team"}</span>
-                    <span className="mx-2">|</span>
-                    <span>{formatRelativeDate(story.pubDate)}</span>
+                  <div className="flex flex-col space-y-4">
+                    <div className="flex items-center text-gray-800 text-xs sm:text-sm font-serif italic">
+                      <span>By {story.author || "Editorial Team"}</span>
+                      <span className="mx-2">|</span>
+                      <span>{formatRelativeDate(story.pubDate)}</span>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        onClick={() => handleViewFull(story)}
+                        className="px-3 flex py-1 text-xs text-white font-serif border border-black/10 shadow-sm hover:text-black hover:border-black bg-black hover:bg-white transition-all duration-300 items-center"
+                      >
+                        Full Article <BookOpenText className="w-4 h-4 ml-1" />
+                      </button>
+                      <button
+                        onClick={() => handleSummarize(story)}
+                        className="px-3 flex py-1 text-xs text-white font-serif border border-black/10 shadow-sm hover:text-black hover:border-black bg-black/75 hover:bg-white transition-all duration-300 items-center"
+                      >
+                        Summary <Sparkles className="w-4 h-4 ml-1" />
+                      </button>
+                      <button
+                        onClick={() => handleShare(story)}
+                        className="px-3 flex py-1 text-xs text-white font-serif border border-black/10 shadow-sm hover:text-black hover:border-black bg-black/50 hover:bg-white transition-all duration-300 items-center"
+                      >
+                        Share <Share className="w-4 h-4 ml-1" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -207,6 +338,43 @@ const Politics = () => {
             </section>
           )}
       </div>
+
+      {/* Content Modal */}
+      <ContentModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title={modalTitle}
+      >
+        {renderModalContent()}
+      </ContentModal>
+
+      {/* Share Options Modal */}
+      <ContentModal
+        isOpen={isShareModalOpen}
+        onClose={closeShareModal}
+        title="Share Options"
+      >
+        <div className="flex flex-col space-y-4">
+          <button
+            onClick={() => handleShareOption("Blog")}
+            className="px-4 py-2 text-sm font-serif border-2 border-black/20 shadow-sm bg-white hover:bg-black hover:text-white transition-all duration-300 w-full"
+          >
+            Create Blog Post
+          </button>
+          <button
+            onClick={() => handleShareOption("LinkedIn")}
+            className="px-4 py-2 text-sm font-serif border-2 border-black/20 shadow-sm bg-white hover:bg-black hover:text-white transition-all duration-300 w-full"
+          >
+            Share on LinkedIn
+          </button>
+          <button
+            onClick={() => handleShareOption("Twitter")}
+            className="px-4 py-2 text-sm font-serif border-2 border-black/20 shadow-sm bg-white hover:bg-black hover:text-white transition-all duration-300 w-full"
+          >
+            Share on Twitter
+          </button>
+        </div>
+      </ContentModal>
     </Layout>
   );
 };
