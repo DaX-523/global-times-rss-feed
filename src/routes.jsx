@@ -1,15 +1,16 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
-import BreakingNews from './Pages/BreakingNews';
 import Politics from './Pages/Politics';
-import Business from './Pages/Business';
 import Technology from './Pages/Technology';
-import Science from './Pages/Science';
 import Sports from './Pages/Sports';
 import NewsDetail from './Pages/NewsDetail';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Cryptocurrencies from './Pages/Cryptocurrencies';
+import Finance from './Pages/Finance';
+import Stocks from './Pages/Stocks';
+import Healthcare from './Pages/Healthcare';
 
 export const AppRoutes = () => {
   return (
@@ -17,16 +18,13 @@ export const AppRoutes = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/breaking-news" element={<BreakingNews />} />
         <Route path="/politics" element={<Politics />} />
-        <Route path="/business" element={<Business />} />
         <Route path="/technology" element={<Technology />} />
-        <Route path="/science" element={<Science />} />
         <Route path="/sports" element={<Sports />} />
-        {/* <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
+        <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
         <Route path="/finance" element={<Finance />} />
         <Route path="/stocks" element={<Stocks />} />
-        <Route path="/wellness" element={<Wellness />} /> */}
+        <Route path="/healthcare" element={<Healthcare />} />
         <Route path="/news/:id" element={<NewsDetail />} />
       </Routes>
       <Footer />
