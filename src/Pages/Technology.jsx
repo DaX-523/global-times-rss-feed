@@ -5,6 +5,7 @@ import techGiantsImage from "../assets/tech-giants-unveil-ai-safety-framework-ma
 import { baseUrl, technology } from "../lib/constants";
 import formatRelativeDate from "../utils/formatRelativeDate";
 import parseContent from "../lib/parseContent";
+import useFeedData from "../hooks/useFeedData";
 
 // const getRandomPoliticsImage = () => {
 //   const images = [politicsImage, politicsImage1, politicsImage2];
@@ -13,27 +14,7 @@ import parseContent from "../lib/parseContent";
 // };
 
 const Technology = () => {
-  const [data, setData] = React.useState(null);
-  const fetchData = async () => {
-    const maal = await fetch(`${baseUrl}${technology}`);
-    const feed = await maal.json();
-    if (feed?.status !== "ok") {
-      console.error("Failed to fetch feed", feed);
-      return;
-    }
-
-    feed.items = feed?.items?.map((item) => {
-      return {
-        ...item,
-        description: parseContent(item.description),
-      };
-    });
-    setData(feed);
-  };
-
-  React.useEffect(() => {
-    fetchData();
-  }, []);
+  const { data, loading, error } = useFeedData(technology);
 
   return (
     <Layout>

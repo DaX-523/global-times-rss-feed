@@ -84,12 +84,12 @@ const Navbar = () => {
                   ></img>
                 </Link>
               </div>
-              <div className="hidden  overflow-x-scroll scrollbar-hide md:flex md:items-center md:space-x-8">
+              <div className="hidden  overflow-x-scroll scrollbar-hide md:flex md:items-center md:space-x-6">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`inline-flex items-center px-2 py-2 text-sm font-serif uppercase tracking-wider transform hover:-rotate-1 transition-all duration-300 ${
+                    className={`inline-flex items-center px-2 py-2 text-sm font-serif uppercase tracking-wide transform hover:-rotate-1 transition-all duration-300 ${
                       location.pathname === link.path
                         ? "text-black border-b-2 border-black"
                         : "text-gray-600 hover:text-black hover:border-b-2 hover:border-black"
@@ -102,7 +102,7 @@ const Navbar = () => {
               <div className="hidden md:flex md:items-center">
                 <button
                   onClick={handleSubscribe}
-                  className="bg-black text-white px-4 ml-6 py-2 text-sm font-serif uppercase tracking-wider transform hover:-rotate-1 transition-all duration-300 hover:bg-gray-800"
+                  className="bg-black text-white px-4 ml-6 py-2 text-sm font-serif uppercase tracking-wide transform hover:-rotate-1 transition-all duration-300 hover:bg-gray-800"
                 >
                   Subscribe
                 </button>
@@ -166,7 +166,7 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`block pl-3 pr-4 py-3 text-base font-serif uppercase tracking-wider transform hover:-rotate-1 transition-all duration-300 ${
+                className={`block pl-3 pr-4 py-3 text-base font-serif uppercase tracking-wide transform hover:-rotate-1 transition-all duration-300 ${
                   location.pathname === link.path
                     ? "bg-black text-white"
                     : "text-gray-600 hover:text-black hover:bg-gray-50"
@@ -184,7 +184,7 @@ const Navbar = () => {
                   setIsOpen(false);
                   handleSubscribe();
                 }}
-                className="w-full bg-black text-white px-6 py-3 text-sm font-serif uppercase tracking-wider transform hover:-rotate-1 transition-all duration-300 hover:bg-gray-800"
+                className="w-full bg-black text-white px-6 py-3 text-sm font-serif uppercase tracking-wide transform hover:-rotate-1 transition-all duration-300 hover:bg-gray-800"
               >
                 Subscribe
               </button>
