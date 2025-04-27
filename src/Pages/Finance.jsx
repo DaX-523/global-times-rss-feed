@@ -84,6 +84,7 @@ const Finance = () => {
     setModalContent("");
     setModalTitle("");
     setModalType("");
+    dispatch({ type: "REMOVE_DATA" });
   };
 
   const closeShareModal = () => {

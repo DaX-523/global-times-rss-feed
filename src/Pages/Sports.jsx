@@ -75,6 +75,7 @@ const Sports = () => {
     setModalContent("");
     setModalTitle("");
     setModalType("");
+    dispatch({ type: "REMOVE_DATA" });
   };
 
   const closeShareModal = () => {

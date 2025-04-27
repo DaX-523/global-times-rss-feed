@@ -6,10 +6,12 @@ import { call } from "../lib/GroqApiCall";
 
 const ShareButtons = ({ content, onShareClick }) => {
   const { state, dispatch } = useContentContext();
-
+  console.log(content);
   const createBlog = async () => {
     try {
+      console.log("Before call:", BlogPrompt, content);
       const data = await call(BlogPrompt, content);
+      console.log("After call:", data);
       dispatch({ type: "SET_BLOG", payload: data });
     } catch (error) {
       console.log(error);

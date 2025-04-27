@@ -131,7 +131,7 @@ const Home = () => {
                 className="text-4xl sm:text-6xl md:text-8xl font-serif text-center font-bold py-4 sm:py-8 italic"
                 style={{ fontFamily: "Playfair Display, serif" }}
               >
-                The Global Times
+                FeedCraft AI
               </h1>
               <div className="text-center font-serif text-sm sm:text-lg mb-4 italic">
                 {new Date().toLocaleDateString("en-US", {

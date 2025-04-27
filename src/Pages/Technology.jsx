@@ -75,6 +75,7 @@ const Technology = () => {
     setModalContent("");
     setModalTitle("");
     setModalType("");
+    dispatch({ type: "REMOVE_DATA" });
   };
 
   const closeShareModal = () => {

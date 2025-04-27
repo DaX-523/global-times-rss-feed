@@ -9,7 +9,10 @@ import formatRelativeDate from "../utils/formatRelativeDate";
 import { politics } from "../lib/constants";
 import useFeedData from "../hooks/useFeedData";
 import { summarizeContent } from "../lib/GroqApiCall";
+import ShareButtons from "../components/ShareButtons";
+
 import { Sparkles, BookOpenText, Share } from "lucide-react";
+import { useContentContext } from "../context/ContentContext";
 
 // Function to get a random politics image
 const getRandomImage = () => {
@@ -34,6 +37,9 @@ const Politics = () => {
   const [summarizedContent, setSummarizedContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [modalType, setModalType] = useState(""); // 'full', 'summary', 'notes', etc.
+  const [copied, setCopied] = useState(false);
+
+  const { state, dispatch } = useContentContext();
 
   const handleViewFull = (story) => {
     setSelectedStory(story);
@@ -80,6 +86,7 @@ const Politics = () => {
     setModalContent("");
     setModalTitle("");
     setModalType("");
+    dispatch({ type: "REMOVE_DATA" });
   };
 
   const closeShareModal = () => {
@@ -114,6 +121,19 @@ const Politics = () => {
   ];
 
   const renderModalContent = () => {
+    const handleCopy = () => {
+      navigator.clipboard.writeText(state.content).then(
+        () => {
+          setCopied(true);
+          setTimeout(() => {
+            setCopied(false);
+          }, 3000);
+        },
+        (err) => {
+          console.error("Failed to copy text: ", err);
+        }
+      );
+    };
     if (modalType === "full") {
       return <div className="prose max-w-none">{modalContent}</div>;
     }
@@ -139,6 +159,10 @@ const Politics = () => {
       return (
         <div>
           <textarea
+            value={state.content}
+            onChange={(e) =>
+              dispatch({ type: "SET_DATA", payload: e.target.value })
+            }
             className="w-full h-64 p-4 border-2 border-black font-serif"
             placeholder={`Create your ${modalType.replace(
               "share-",
@@ -146,6 +170,18 @@ const Politics = () => {
             )} post here...`}
             autoFocus
           ></textarea>
+          <button
+            onClick={handleCopy}
+            className={`py-1 px-2 mr-1 rounded bg-green-500 hover:bg-green-600 transition-colors transform duration-300`}
+          >
+            {copied ? "Copied! ✅" : "Copy"}
+          </button>
+          <button
+            onClick={() => dispatch({ type: "REMOVE_DATA" })}
+            className="py-1 px-2 ml-1 rounded bg-red-500 hover:bg-red-700 transition-colors transform duration-300"
+          >
+            Clear
+          </button>
         </div>
       );
     }
@@ -354,26 +390,10 @@ const Politics = () => {
         onClose={closeShareModal}
         title="Share Options"
       >
-        <div className="flex flex-col space-y-4">
-          <button
-            onClick={() => handleShareOption("Blog")}
-            className="px-4 py-2 text-sm font-serif border-2 border-black/20 shadow-sm bg-white hover:bg-black hover:text-white transition-all duration-300 w-full"
-          >
-            Create Blog Post
-          </button>
-          <button
-            onClick={() => handleShareOption("LinkedIn")}
-            className="px-4 py-2 text-sm font-serif border-2 border-black/20 shadow-sm bg-white hover:bg-black hover:text-white transition-all duration-300 w-full"
-          >
-            Share on LinkedIn
-          </button>
-          <button
-            onClick={() => handleShareOption("Twitter")}
-            className="px-4 py-2 text-sm font-serif border-2 border-black/20 shadow-sm bg-white hover:bg-black hover:text-white transition-all duration-300 w-full"
-          >
-            Share on Twitter
-          </button>
-        </div>
+        <ShareButtons
+          content={selectedStory?.description}
+          onShareClick={handleShareOption}
+        />
       </ContentModal>
     </Layout>
   );
