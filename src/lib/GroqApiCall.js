@@ -13,7 +13,6 @@ export async function summarizeContent(description) {
 }
 
 export async function call(prompt, content) {
-  console.log(prompt, content);
   const res = await fetch("/api/groq-handler", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -25,10 +24,10 @@ export async function call(prompt, content) {
   });
 
   const data = await res.json();
-  console.log(data);
   return data.result;
 }
 
+//legacy (unsecured (exposd API key))
 // const summarizeContent = async (content) => {
 //   const data = await groq.chat.completions.create({
 //     model: "llama3-70b-8192",
