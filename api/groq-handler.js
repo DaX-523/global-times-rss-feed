@@ -6,16 +6,16 @@ const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
+export async function POST(req) {
   try {
-    const { type, prompt, content } = req.body;
-
+    const { type, prompt, content } = await req.json();
     if (!content) {
-      return res.status(400).json({ error: "Missing 'content' field." });
+      return new Response(
+        JSON.stringify({ error: "Missing 'content' field." }),
+        {
+          status: 400,
+        }
+      );
     }
 
     let result;
@@ -24,21 +24,34 @@ export default async function handler(req, res) {
       result = await summarizeContent(content);
     } else if (type === "call") {
       if (!prompt) {
-        return res
-          .status(400)
-          .json({ error: "Missing 'prompt' field for 'call' type." });
+        return new Response(
+          JSON.stringify({ error: "Missing 'prompt' field for 'call' type." }),
+          {
+            status: 400,
+          }
+        );
       }
       result = await call(prompt, content);
     } else {
-      return res.status(400).json({
-        error: "Invalid 'type'. Must be 'summarize' or 'call'.",
-      });
+      return new Response(
+        JSON.stringify({
+          error: "Invalid 'type'. Must be 'summarize' or 'call'.",
+        }),
+        {
+          status: 400,
+        }
+      );
     }
 
-    return res.status(200).json({ result });
+    return new Response(JSON.stringify({ result }), {
+      headers: { "Content-Type": "application/json" },
+      status: 200,
+    });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "Internal Server Error" });
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+      status: 500,
+    });
   }
 }
 
