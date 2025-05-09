@@ -56,29 +56,14 @@ const Footer = () => {
               News Categories
             </h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  to="/breaking-news"
-                  className="text-gray-700 hover:text-black transition-colors font-serif italic"
-                >
-                  Breaking News
-                </Link>
+              <li className="text-gray-700 transition-colors font-serif italic">
+                Breaking News
               </li>
-              <li>
-                <Link
-                  to="/opinion"
-                  className="text-gray-700 hover:text-black transition-colors font-serif italic"
-                >
-                  Opinion
-                </Link>
+              <li className="text-gray-700 transition-colors font-serif italic">
+                Opinion
               </li>
-              <li>
-                <Link
-                  to="/features"
-                  className="text-gray-700 hover:text-black transition-colors font-serif italic"
-                >
-                  Features
-                </Link>
+              <li className="text-gray-700 transition-colors font-serif italic">
+                Features
               </li>
             </ul>
           </div>

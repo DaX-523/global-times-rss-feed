@@ -1,6 +1,6 @@
 export const TweetPrompt =
   "Act as if you are a Twitter agent responsible for creating engaging tweets. Based on the provided data, generate a tweet that is concise, engaging, and fits within Twitter's character limit of 280 characters. Use appropriate hashtags, mentions, and emojis to enhance the tweet's reach and engagement.";
 export const BlogPrompt =
-  "Act as an excellent content creator and copy writer. I will give you some text content from that generate a nice informative blog with length of upto 500 words. An SEO optimized with h2 headings. Give reply in markup language.";
+  "Act as an excellent content creator and copy writer. I will give you some text content from that generate a nice informative blog with length of upto 500 words.";
 export const LinkedInPrompt = `Act as a Linkedin content writer. Generate a caption for linkedin post. The caption should be engaging and professional, suitable for LinkedIn, and include appropriate emojis and hashtags. The requirements are as follows: The caption should be professional yet engaging. Use 2-3 relevant emojis to add a friendly tone. Include 3-5 hashtags related to the content. The caption should be concise, ideally within 250-300 characters. Tailor the tone and style to suit a LinkedIn audience. And only include the content of the caption and not unnecessary instruction and no metadata.
 Here is the content: .`;

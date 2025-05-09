@@ -1,49 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
   };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   return (
-    <div className="pt-32 pb-16 px-8 max-w-[1920px] mx-auto">
-      <h1 className="text-4xl font-serif font-bold text-black italic mb-8">Contact Us</h1>
+    <div className="pt-40 pb-16 px-8 max-w-[1920px] mx-auto">
+      <h1 className="text-4xl font-serif font-bold text-black italic mb-8">
+        Contact Us
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
-          <h2 className="text-2xl font-serif font-bold text-black italic mb-4">Get in Touch</h2>
+          <h2 className="text-2xl font-serif font-bold text-black italic mb-4">
+            Get in Touch
+          </h2>
           <p className="text-gray-700 font-serif italic mb-6">
-            Have a story tip? Want to submit a letter to the editor? Or just want to share your thoughts? We'd love to hear from you.
+            Have feedback about our platform? Want to suggest a new news
+            category? Or just want to share your experience with FeedCraft AI?
+            We'd love to hear from you.
           </p>
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-serif font-bold text-black italic mb-2">Office Location</h3>
+              <h3 className="text-lg font-serif font-bold text-black italic mb-2">
+                Office Location
+              </h3>
               <p className="text-gray-700 font-serif italic">
-                The Daily Prophet Building<br />
-                Diagon Alley<br />
-                London, England
+                FeedCraft AI
+                <br />
+                Jaipur, RJ 303121
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-serif font-bold text-black italic mb-2">Contact Information</h3>
+              <h3 className="text-lg font-serif font-bold text-black italic mb-2">
+                Contact Information
+              </h3>
               <p className="text-gray-700 font-serif italic">
-                Owl Post: evening.edition@dailyprophet.com<br />
-                Floo Network: Evening Edition Office
+                Email: dakshdhama0502@gmail.com
+                <br />
+                Phone: +91 93512 17522
               </p>
             </div>
           </div>
@@ -51,7 +62,12 @@ const Contact = () => {
         <div>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-gray-700 font-serif italic mb-2">Name</label>
+              <label
+                htmlFor="name"
+                className="block text-gray-700 font-serif italic mb-2"
+              >
+                Name
+              </label>
               <input
                 type="text"
                 id="name"
@@ -63,7 +79,12 @@ const Contact = () => {
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-gray-700 font-serif italic mb-2">Email</label>
+              <label
+                htmlFor="email"
+                className="block text-gray-700 font-serif italic mb-2"
+              >
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
@@ -75,7 +96,12 @@ const Contact = () => {
               />
             </div>
             <div>
-              <label htmlFor="subject" className="block text-gray-700 font-serif italic mb-2">Subject</label>
+              <label
+                htmlFor="subject"
+                className="block text-gray-700 font-serif italic mb-2"
+              >
+                Subject
+              </label>
               <input
                 type="text"
                 id="subject"
@@ -87,7 +113,12 @@ const Contact = () => {
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-gray-700 font-serif italic mb-2">Message</label>
+              <label
+                htmlFor="message"
+                className="block text-gray-700 font-serif italic mb-2"
+              >
+                Message
+              </label>
               <textarea
                 id="message"
                 name="message"
@@ -111,4 +142,4 @@ const Contact = () => {
   );
 };
 
-export default Contact; 
+export default Contact;

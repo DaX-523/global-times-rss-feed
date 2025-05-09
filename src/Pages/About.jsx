@@ -1,26 +1,45 @@
-import React from 'react';
+import React from "react";
 
 const About = () => {
   return (
-    <div className="pt-32 pb-16 px-8 max-w-[1920px] mx-auto">
-      <h1 className="text-4xl font-serif font-bold text-black italic mb-8">About Evening Edition</h1>
+    <div className="pt-40 pb-16 px-8 max-w-[1920px] mx-auto">
+      <h1 className="text-4xl font-serif font-bold text-black italic mb-8">
+        About FeedCraft AI
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
-          <h2 className="text-2xl font-serif font-bold text-black italic mb-4">Our Story</h2>
+          <h2 className="text-2xl font-serif font-bold text-black italic mb-4">
+            Our Story
+          </h2>
           <p className="text-gray-700 font-serif italic mb-6">
-            Founded in 1991, Evening Edition has been at the forefront of magical journalism, bringing you the most accurate and timely news from the wizarding world. Our commitment to journalistic integrity and magical accuracy has made us the most trusted source of magical news.
+            FeedCraft AI was developed to revolutionize how people consume news
+            and information in today's fast-paced digital world. Our platform
+            aggregates content from various trusted sources (RSS Feeds),
+            organizing it into intuitive categories to help you stay informed
+            without information overload.
           </p>
           <p className="text-gray-700 font-serif italic">
-            Our team of experienced magical journalists and correspondents work tirelessly to bring you the latest developments in the wizarding community, from Ministry affairs to Quidditch matches, and everything in between.
+            RSS Feeds sources enables FeedCraft AI to receive the most relevant,
+            accurate, and timely news across multiple categories including
+            Politics, Technology, Sports, Finance, Healthcare, Cryptocurrencies,
+            and Stocks. (More Coming Soon!)
           </p>
         </div>
         <div>
-          <h2 className="text-2xl font-serif font-bold text-black italic mb-4">Our Mission</h2>
+          <h2 className="text-2xl font-serif font-bold text-black italic mb-4">
+            Our Mission
+          </h2>
           <p className="text-gray-700 font-serif italic mb-6">
-            At Evening Edition, we believe in the power of informed magical citizens. Our mission is to provide accurate, unbiased reporting that keeps the wizarding community well-informed about the events that shape our world.
+            At FeedCraft AI, we believe in the power of informed citizens. Our
+            mission is to provide a streamlined news experience that cuts
+            through the noise, delivering content that matters to you in an
+            elegant, user-friendly interface.
           </p>
           <p className="text-gray-700 font-serif italic">
-            We strive to maintain the highest standards of magical journalism while ensuring that our content is accessible to both young and experienced witches and wizards.
+            We leverage artificial intelligence to personalize your news
+            experience while maintaining the highest standards of journalistic
+            integrity. Our goal is to make content creation lightning fast for
+            social media influencers accross various social media platforms.
           </p>
         </div>
       </div>
@@ -28,4 +47,4 @@ const About = () => {
   );
 };
 
-export default About; 
+export default About;
