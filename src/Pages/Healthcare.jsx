@@ -166,6 +166,63 @@ const Healthcare = () => {
   return (
     <Layout>
       <div className="min-h-screen pt-2 sm:pt-4 md:pt-6">
+        {/* Newspaper Header */}
+        {/* Newspaper Header Start */}
+        {data?.feed?.image && (
+          <img
+            src={data.feed.image}
+            alt={data.feed.title || "Feed Logo"}
+            className="w-12 h-12 sm:w-20 sm:h-20 object-contain border border-black rounded-full bg-white shadow-md mx-auto"
+          />
+        )}
+        <div className="w-full border-b-4 border-black mb-4 sm:mb-6 md:mb-8">
+          <div className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8">
+            {/* Logo/Image */}
+
+            <div className="flex-1 text-center flex flex-col items-center">
+              {/* Title/Description/Meta */}
+              <h1
+                className="text-4xl sm:text-6xl md:text-8xl font-serif font-bold py-4 sm:py-6 md:py-8 italic"
+                style={{ fontFamily: "Playfair Display, serif" }}
+              >
+                {data?.feed?.title || "Healthcare News"}
+              </h1>
+              {data?.feed?.description && (
+                <div className="font-serif text-base sm:text-lg md:text-xl text-gray-700 mb-2 italic">
+                  {data.feed.description}
+                </div>
+              )}
+              <div className="text-center font-serif text-sm sm:text-base md:text-lg mb-4 italic flex flex-wrap items-center justify-center gap-x-2">
+                <span>
+                  {new Date().toLocaleDateString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+                <span className="mx-2 sm:mx-4">|</span>
+                <span>"Your Window to the World"</span>
+                <span className="mx-2 sm:mx-4">|</span>
+                <span>Digital Edition</span>
+              </div>
+              {data?.feed?.link && (
+                <a
+                  href={data.feed.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs sm:text-sm text-gray-500 underline hover:text-blue-900 font-serif"
+                >
+                  Source:{" "}
+                  {data.feed.link
+                    .replace(/^https?:\/\//, "")
+                    .replace(/\/$/, "")}
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+        {/* Newspaper Header End */}
         {/* Error State */}
         {error && (
           <div className="max-w-[1920px] mx-auto px-4 py-12 text-center">

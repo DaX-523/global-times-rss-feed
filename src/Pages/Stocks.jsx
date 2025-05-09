@@ -185,7 +185,7 @@ const Stocks = () => {
                 className="text-4xl sm:text-6xl md:text-8xl font-serif font-bold py-4 sm:py-6 md:py-8 italic"
                 style={{ fontFamily: "Playfair Display, serif" }}
               >
-                {data?.feed?.title || "Technology News"}
+                {data?.feed?.title || "Stocks News"}
               </h1>
               {data?.feed?.description && (
                 <div className="font-serif text-base sm:text-lg md:text-xl text-gray-700 mb-2 italic">
